@@ -118,6 +118,11 @@ function doCreateContact()
 	window.location.href = "createContact.html";
 }
 
+function doContactSearch()
+{
+	window.location.href = "contactSearch.html";
+}
+
 function addColor()
 {
 	let newColor = document.getElementById("colorText").value;
