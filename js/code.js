@@ -46,7 +46,7 @@ function doLogin()
 
 				saveCookie();
 	
-				window.location.href = "color.html";
+				window.location.href = "contactSearch.html";
 			}
 		};
 		xhr.send(jsonPayload);
