@@ -46,7 +46,7 @@ function doLogin()
 
 				saveCookie();
 	
-				window.location.href = "color.html";
+				window.location.href = "contactSearch.html";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -106,6 +106,21 @@ function doLogout()
 	lastName = "";
 	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
 	window.location.href = "index.html";
+}
+
+function doSignup()
+{
+	window.location.href = "signup.html";
+}
+
+function doCreateContact()
+{
+	window.location.href = "createContact.html";
+}
+
+function doContactSearch()
+{
+	window.location.href = "contactSearch.html";
 }
 
 function addColor()
