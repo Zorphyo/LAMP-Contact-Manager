@@ -108,6 +108,16 @@ function doLogout()
 	window.location.href = "index.html";
 }
 
+function doSignup()
+{
+	window.location.href = "signup.html";
+}
+
+function doCreateContact()
+{
+	window.location.href = "createContact.html";
+}
+
 function addColor()
 {
 	let newColor = document.getElementById("colorText").value;
