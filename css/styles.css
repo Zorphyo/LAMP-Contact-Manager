@@ -147,3 +147,17 @@ select{
     font-family: 'Ubuntu', sans-serif;
     color: #95060a;
 }
+
+.contactRow {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 2px;
+}
+
+.contactColor1 {
+    background-color: white;
+}
+
+.contactColor2 {
+    background-color: #e6e6e6;
+}
