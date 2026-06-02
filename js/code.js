@@ -123,6 +123,16 @@ function doContactSearch()
 	window.location.href = "contactSearch.html";
 }
 
+function editContact(Id)
+{
+    console.log("Editing contact with id:", Id);
+}
+
+function deleteContact(Id)
+{
+    console.log("Deleting contact with id:", Id);
+}
+
 function addColor()
 {
 	let newColor = document.getElementById("colorText").value;
@@ -233,8 +243,8 @@ function searchContacts()
 				        jsonObject.results[i].LastName + "</strong><br>" +
 				        jsonObject.results[i].Phone +
 						jsonObject.results[i].Email +
-						"<br><button class='contactButtons'>Edit</button> " +
-			            "<br><button class='contactButtons'>Delete</button>" +
+						"<br><button onclick='editContact(" + jsonObject.results[i].ID + ")'>Edit</button>" +
+						"<br><button onclick='deleteContact(" + jsonObject.results[i].ID + ")'>Delete</button>"
 				        "</div>";
 				}
 				
