@@ -233,6 +233,8 @@ function searchContacts()
 				        jsonObject.results[i].LastName + "</strong><br>" +
 				        jsonObject.results[i].Phone +
 						jsonObject.results[i].Email +
+						"<br><button class='contactButtons'>Edit</button> " +
+			            "<br><button class='contactButtons'>Delete</button>" +
 				        "</div>";
 				}
 				
