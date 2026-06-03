@@ -244,7 +244,7 @@ function searchContacts()
 				        jsonObject.results[i].Phone +
 						jsonObject.results[i].Email +
 						"<br><button onclick='editContact(" + jsonObject.results[i].ID + ")'>Edit</button>" +
-						"<br><button onclick='deleteContact(" + jsonObject.results[i].ID + ")'>Delete</button>"
+						"<br><button onclick='deleteContact(" + jsonObject.results[i].ID + ")'>Delete</button>" + 
 				        "</div>";
 				}
 				
