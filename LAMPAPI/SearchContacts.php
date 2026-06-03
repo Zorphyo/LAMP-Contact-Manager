@@ -29,7 +29,7 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .= '"' . $row["FirstName"] . '"';
+			$searchResults .= '"' . $row["FirstName"] . ' ' . $row["LastName"] . '"';
 		}
 		
 		if( $searchCount == 0 )
@@ -64,7 +64,7 @@
 	
 	function returnWithInfo( $searchResults )
 	{
-		$retValue = '{"results":[' . $searchResults . '],"error":""}';
+		$retValue = '{"results":[' . $searchResults . '],"error":"None"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
