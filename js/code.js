@@ -259,3 +259,59 @@ function searchContacts()
 	}
 	
 }
+
+function createContact()
+{
+    let firstName = document.getElementById("firstName").value;
+    let lastName = document.getElementById("lastName").value;
+    let phone = document.getElementById("phone").value;
+    let email = document.getElementById("email").value;
+
+    document.getElementById("loginResult").innerHTML = "";
+
+    let tmp =
+    {
+        FirstName: firstName,
+        LastName: lastName,
+        Phone: phone,
+        Email: email,
+        UserID: userId
+    };
+
+    let jsonPayload = JSON.stringify(tmp);
+
+    let url = urlBase + '/AddContact.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    try
+    {
+        xhr.onreadystatechange = function()
+        {
+            if (this.readyState == 4 && this.status == 200)
+            {
+                let jsonObject = JSON.parse(xhr.responseText);
+
+                if (jsonObject.error != "None")
+                {
+                    document.getElementById("loginResult").innerHTML =
+                        jsonObject.error;
+                }
+                else
+                {
+                    document.getElementById("loginResult").innerHTML =
+                        "Contact added successfully";
+                     window.location.href = "contactSearch.html";
+                }
+            }
+        };
+
+        xhr.send(jsonPayload);
+    }
+    catch(err)
+    {
+        document.getElementById("loginResult").innerHTML = err.message;
+    }
+}
