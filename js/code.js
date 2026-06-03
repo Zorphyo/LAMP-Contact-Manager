@@ -123,6 +123,16 @@ function doContactSearch()
 	window.location.href = "contactSearch.html";
 }
 
+function editContact(Id)
+{
+    console.log("Editing contact with id:", Id);
+}
+
+function deleteContact(Id)
+{
+    console.log("Deleting contact with id:", Id);
+}
+
 function addColor()
 {
 	let newColor = document.getElementById("colorText").value;
@@ -195,6 +205,57 @@ function searchColor()
 	catch(err)
 	{
 		document.getElementById("colorSearchResult").innerHTML = err.message;
+	}
+	
+}
+
+function searchContacts()
+{
+	let srch = document.getElementById("searchText").value;
+	document.getElementById("contactSearchResult").innerHTML = "";
+	
+	let contactList = "";
+
+	let tmp = {search:srch,userId:userId};
+	let jsonPayload = JSON.stringify( tmp );
+
+	let url = urlBase + '/SearchContacts.' + extension;
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
+				let jsonObject = JSON.parse( xhr.responseText );
+				
+				for( let i=0; i<jsonObject.results.length; i++ )
+				{
+				    let rowClass = (i % 2 == 0) ? "contactColor1" : "contactColor2";
+				
+				    contactList +=
+				        "<div class='contactRow " + rowClass + "'>" +
+				        "<strong>" + jsonObject.results[i].FirstName + " " +
+				        jsonObject.results[i].LastName + "</strong><br>" +
+				        jsonObject.results[i].Phone +
+						jsonObject.results[i].Email +
+						"<br><button onclick='editContact(" + jsonObject.results[i].ID + ")'>Edit</button>" +
+						"<br><button onclick='deleteContact(" + jsonObject.results[i].ID + ")'>Delete</button>"
+				        "</div>";
+				}
+				
+				document.getElementById("contactList").innerHTML = contactList;
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
 	
 }
