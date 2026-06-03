@@ -1,10 +1,10 @@
 <?php
 	$inData = getRequestInfo();
 	
-	$firstName = $inData["firstName"];
-	$lastName = $inData["lastName"];
-    $username = $inData["login"];
-    $password = $inData["password"];
+	$firstName = $inData["FirstName"];
+	$lastName = $inData["LastName"];
+    $username = $inData["Login"];
+    $password = $inData["Password"];
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error) 
