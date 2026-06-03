@@ -2,8 +2,8 @@
 
 	$inData = getRequestInfo();
 
-	$userId = $inData["UserID"];
-	$query = $inData["Query"];
+	$userId = $inData["userId"];
+	$query = $inData["search"];
 	
 	$searchResults = "";
 	$searchCount = 0;
@@ -29,7 +29,12 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .= '"' . $row["FirstName"] . ' ' . $row["LastName"] . '"';
+			$results = array();
+
+			while($row = $result->fetch_assoc())
+			{
+			    $results[] = $row;
+			}
 		}
 		
 		if( $searchCount == 0 )
@@ -38,7 +43,11 @@
 		}
 		else
 		{
-			returnWithInfo( $searchResults );
+			//returnWithInfo( $searchResults );
+			echo json_encode(array(
+			    "results" => $results,
+			    "error" => ""
+			));
 		}
 		
 		$stmt->close();
