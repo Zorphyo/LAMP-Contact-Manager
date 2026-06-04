@@ -132,7 +132,7 @@ function editContact(index)
         JSON.stringify(contacts[index])
     );
 
-    window.location.href = "editContact.html";
+    window.location.href = "createContact.html";
 }
 
 function saveContact()
