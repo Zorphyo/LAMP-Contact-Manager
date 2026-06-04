@@ -268,7 +268,7 @@ function searchContacts()
 				        jsonObject.results[i].LastName + "</strong><br>" +
 				        jsonObject.results[i].Phone + "<br>" + 
 						jsonObject.results[i].Email +
-						"<br><button onclick='editContact(" + JSON.stringify(jsonObject.results[i]).replace(/"/g, "&quot;") + ")'>Edit</button>" +
+						"<br><button onclick='editContact(" + i + ")'>Edit</button>" + 
 						"<br><button onclick='deleteContact(" + jsonObject.results[i].ID + ")'>Delete</button>" + 
 				        "</div>";
 				}
