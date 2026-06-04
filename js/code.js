@@ -100,6 +100,69 @@ function readCookie()
 	}
 }
 
+function doCreateUser()
+{
+    let firstName = document.getElementById("firstName").value;
+    let lastName = document.getElementById("lastName").value;
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+    let confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+    document.getElementById("loginResult").innerHTML = "";
+
+    if(password !== confirmPassword)
+    {
+        document.getElementById("loginResult").innerHTML =
+            "Passwords do not match";
+        return;
+    }
+
+    let tmp =
+    {
+        FirstName: firstName,
+        LastName: lastName,
+        Login: username,
+        Password: password
+    };
+
+    let jsonPayload = JSON.stringify(tmp);
+
+    let url = urlBase + '/AddUser.' + extension;
+
+    let xhr = new XMLHttpRequest();
+
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader(
+        "Content-type",
+        "application/json; charset=UTF-8"
+    );
+
+    xhr.onreadystatechange = function()
+    {
+        if(this.readyState == 4 && this.status == 200)
+        {
+            let jsonObject = JSON.parse(xhr.responseText);
+
+            if(jsonObject.error == "None")
+            {
+                document.getElementById("loginResult").innerHTML =
+                    "Account created successfully";
+
+                // Optional redirect
+                window.location.href = "index.html";
+            }
+            else
+            {
+                document.getElementById("loginResult").innerHTML =
+                    jsonObject.error;
+            }
+        }
+    };
+
+    xhr.send(jsonPayload);
+}
+
 function doLogout()
 {
 	userId = 0;
