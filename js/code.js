@@ -146,10 +146,6 @@ function doCreateUser()
 
             if(jsonObject.error == "None")
             {
-                document.getElementById("loginResult").innerHTML =
-                    "Account created successfully";
-
-                // Optional redirect
                 window.location.href = "index.html";
             }
             else
