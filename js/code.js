@@ -124,20 +124,32 @@ function doContactSearch()
 	window.location.href = "contactSearch.html";
 }
 
-function editContact(Id)
+let contacts = [];
+function editContact(index)
 {
-    window.location.href = "editContact.html?id=" + Id;
+    sessionStorage.setItem(
+        "editingContact",
+        JSON.stringify(contacts[index])
+    );
+
+    window.location.href = "editContact.html";
 }
 
-document.addEventListener('DOMContentLoaded', function()
+function saveContact()
 {
-    readCookie();
+    let originalContact =
+        JSON.parse(sessionStorage.getItem("editingContact"));
 
-    const params = new URLSearchParams(window.location.search);
-    contactId = params.get("id");
-
-    loadContact(contactId);
-});
+    let tmp =
+    {
+        ID: originalContact.ID,
+        FirstName: document.getElementById("firstName").value,
+        LastName: document.getElementById("lastName").value,
+        Phone: document.getElementById("phone").value,
+        Email: document.getElementById("email").value,
+        UserID: userId
+    };
+}
 
 function deleteContact(Id)
 {
@@ -243,6 +255,8 @@ function searchContacts()
 			{
 				document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
 				let jsonObject = JSON.parse( xhr.responseText );
+
+				contacts = jsonObject.results;
 				
 				for( let i=0; i<jsonObject.results.length; i++ )
 				{
@@ -254,7 +268,7 @@ function searchContacts()
 				        jsonObject.results[i].LastName + "</strong><br>" +
 				        jsonObject.results[i].Phone + "<br>" + 
 						jsonObject.results[i].Email +
-						"<br><button onclick='editContact(" + jsonObject.results[i].ID + ")'>Edit</button>" +
+						"<br><button onclick='editContact(" + JSON.stringify(jsonObject.results[i]).replace(/"/g, "&quot;") + ")'>Edit</button>" +
 						"<br><button onclick='deleteContact(" + jsonObject.results[i].ID + ")'>Delete</button>" + 
 				        "</div>";
 				}
