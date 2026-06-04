@@ -172,9 +172,47 @@ function saveContact()
     xhr.send(jsonPayload);
 }
 
-function deleteContact(Id)
+function deleteContact(contactId)
 {
-    console.log("Deleting contact with id:", Id);
+    if(!confirm("Are you sure?"))
+    {
+        return;
+    }
+
+    let tmp =
+    {
+        ID: contactId,
+        UserID: userId
+    };
+
+    let jsonPayload = JSON.stringify(tmp);
+
+    let url = urlBase + '/DeleteContact.' + extension;
+
+    let xhr = new XMLHttpRequest();
+
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    xhr.onreadystatechange = function()
+    {
+        if(this.readyState == 4 && this.status == 200)
+        {
+            let jsonObject = JSON.parse(xhr.responseText);
+
+            if(jsonObject.error == "None")
+            {
+                searchContacts();
+            }
+            else
+            {
+                document.getElementById("contactSearchResult").innerHTML =
+                    jsonObject.error;
+            }
+        }
+    };
+
+    xhr.send(jsonPayload);
 }
 
 function addColor()
