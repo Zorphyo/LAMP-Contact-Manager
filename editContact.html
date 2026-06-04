@@ -7,10 +7,30 @@
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 
 	<script type="text/javascript">
-	document.addEventListener('DOMContentLoaded', function() 
+	document.addEventListener('DOMContentLoaded', function()
 	{
 		readCookie();
-	}, false);
+	
+		let contactJSON =
+			sessionStorage.getItem("editingContact");
+	
+		if(contactJSON)
+		{
+			let contact = JSON.parse(contactJSON);
+	
+			document.getElementById("firstName").value =
+				contact.FirstName;
+	
+			document.getElementById("lastName").value =
+				contact.LastName;
+	
+			document.getElementById("phone").value =
+				contact.Phone;
+	
+			document.getElementById("email").value =
+				contact.Email;
+		}
+	});
 	</script>
 	
 </head>
