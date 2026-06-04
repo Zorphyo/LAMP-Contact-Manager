@@ -116,7 +116,8 @@ function doSignup()
 
 function doCreateContact()
 {
-	window.location.href = "createContact.html";
+    sessionStorage.removeItem("editingContact");
+    window.location.href = "createContact.html";
 }
 
 function doContactSearch()
