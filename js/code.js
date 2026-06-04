@@ -150,6 +150,26 @@ function saveContact()
         Email: document.getElementById("email").value,
         UserID: userId
     };
+
+    let jsonPayload = JSON.stringify(tmp);
+
+    let url = urlBase + '/UpdateContact.' + extension;
+
+    let xhr = new XMLHttpRequest();
+
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    xhr.onreadystatechange = function()
+    {
+        if(this.readyState == 4 && this.status == 200)
+        {
+            sessionStorage.removeItem("editingContact");
+            window.location.href = "contactSearch.html";
+        }
+    };
+
+    xhr.send(jsonPayload);
 }
 
 function deleteContact(Id)
