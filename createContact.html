@@ -7,9 +7,41 @@
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 
 	<script type="text/javascript">
-	document.addEventListener('DOMContentLoaded', function() 
+	document.addEventListener('DOMContentLoaded', function()
 	{
-		readCookie();
+	    readCookie();
+	
+	    let contactJSON =
+	        sessionStorage.getItem("editingContact");
+	
+	    if(contactJSON)
+	    {
+	        let contact = JSON.parse(contactJSON);
+	
+	        document.getElementById("title").innerHTML =
+	            "Edit Contact";
+	
+	        document.getElementById("inner-title").innerHTML =
+	            "Edit Contact";
+	
+	        document.getElementById("firstName").value =
+	            contact.FirstName;
+	
+	        document.getElementById("lastName").value =
+	            contact.LastName;
+	
+	        document.getElementById("phone").value =
+	            contact.Phone;
+	
+	        document.getElementById("email").value =
+	            contact.Email;
+	
+	        document.getElementById("loginButton").innerHTML =
+	            "Save Changes";
+	
+	        document.getElementById("loginButton").onclick =
+	            saveContact;
+	    }
 	}, false);
 	</script>
 	
