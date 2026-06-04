@@ -22,20 +22,29 @@
 		
 		$result = $stmt->get_result();
 		
+		// while($row = $result->fetch_assoc())
+		// {
+		// 	if( $searchCount > 0 )
+		// 	{
+		// 		$searchResults .= ",";
+		// 	}
+		// 	$searchCount++;
+		// 	$results = array();
+
+		// 	while($row = $result->fetch_assoc())
+		// 	{
+		// 	    $results[] = $row;
+		// 	}
+		// }
+
+		$results = array();
+
 		while($row = $result->fetch_assoc())
 		{
-			if( $searchCount > 0 )
-			{
-				$searchResults .= ",";
-			}
-			$searchCount++;
-			$results = array();
-
-			while($row = $result->fetch_assoc())
-			{
-			    $results[] = $row;
-			}
+		    $results[] = $row;
 		}
+		
+		$searchCount = count($results);
 		
 		if( $searchCount == 0 )
 		{
