@@ -301,8 +301,6 @@ function createContact()
                 }
                 else
                 {
-                    document.getElementById("loginResult").innerHTML =
-                        "Contact added successfully";
                      window.location.href = "contactSearch.html";
                 }
             }
