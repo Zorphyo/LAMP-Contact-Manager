@@ -4,6 +4,7 @@ const extension = 'php';
 let userId = 0;
 let firstName = "";
 let lastName = "";
+let contactId = 0;
 
 function doLogin()
 {
@@ -125,8 +126,18 @@ function doContactSearch()
 
 function editContact(Id)
 {
-    console.log("Editing contact with id:", Id);
+    window.location.href = "editContact.html?id=" + Id;
 }
+
+document.addEventListener('DOMContentLoaded', function()
+{
+    readCookie();
+
+    const params = new URLSearchParams(window.location.search);
+    contactId = params.get("id");
+
+    loadContact(contactId);
+});
 
 function deleteContact(Id)
 {
