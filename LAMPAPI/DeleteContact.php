@@ -1,9 +1,7 @@
 <?php
-
 	$inData = getRequestInfo();
 
-	$contactId = $inData["ID"];
-	$userId = $inData["UserID"];
+	$id = $inData["ID"];
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 
@@ -13,30 +11,12 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare(
-			"DELETE FROM Contacts
-			 WHERE ID = ? AND UserID = ?"
-		);
-
-		$stmt->bind_param(
-			"ii",
-			$contactId,
-			$userId
-		);
-
+		$stmt = $conn->prepare("DELETE FROM Contacts WHERE ID = ?");
+		$stmt->bind_param("ii", $id);
 		$stmt->execute();
-
-		if ($stmt->error)
-		{
-			returnWithError($stmt->error);
-		}
-		else
-		{
-			returnWithError("None");
-		}
-
 		$stmt->close();
 		$conn->close();
+		returnWithError("None");
 	}
 
 	function getRequestInfo()
@@ -44,16 +24,16 @@
 		return json_decode(file_get_contents('php://input'), true);
 	}
 
-	function sendResultInfoAsJson($obj)
+	function sendResultInfoAsJson( $obj )
 	{
 		header('Content-type: application/json');
 		echo $obj;
 	}
-
-	function returnWithError($err)
+	
+	function returnWithError( $err )
 	{
 		$retValue = '{"error":"' . $err . '"}';
-		sendResultInfoAsJson($retValue);
+		sendResultInfoAsJson( $retValue );
 	}
 
 ?>
