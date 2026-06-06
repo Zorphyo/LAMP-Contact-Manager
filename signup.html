@@ -100,11 +100,11 @@
         /* inputs */
         #firstName,
         #lastName,
-        #loginName,
+        #username,
         #loginEmail,
         #loginPhone,
-        #loginPassword,
-        #loginPasswordConfirm {
+        #password,
+        #confirmPassword {
             width: 100%;
             height: 38px;
             padding: 0 12px;
@@ -120,21 +120,21 @@
 
         #firstName::placeholder,
         #lastName::placeholder,
-        #loginName::placeholder,
+        #username::placeholder,
         #loginEmail::placeholder,
         #loginPhone::placeholder,
-        #loginPassword::placeholder,
-        #loginPasswordConfirm::placeholder {
+        #password::placeholder,
+        #confirmPassword::placeholder {
             color: #AFA9EC;
         }
 
         #firstName:focus,
         #lastName:focus,
-        #loginName:focus,
+        #username:focus,
         #loginEmail:focus,
         #loginPhone:focus,
-        #loginPassword:focus,
-        #loginPasswordConfirm:focus {
+        #password:focus,
+        #confirmPassword:focus {
             border-color: #7F77DD;
             box-shadow: 0 0 0 3px #EEEDFE;
         }
@@ -236,8 +236,8 @@
         </div>
 
         <div class="field">
-            <label class="field-label" for="loginName">Username</label>
-            <input type="text" id="loginName" placeholder="Enter your username" />
+            <label class="field-label" for="username">Username</label>
+            <input type="text" id="username" placeholder="Enter your username" />
         </div>
 
         <div class="field">
@@ -251,16 +251,16 @@
         </div>
 
         <div class="field">
-            <label class="field-label" for="loginPassword">Password</label>
-            <input type="password" id="loginPassword" placeholder="Enter your password" />
+            <label class="field-label" for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password" />
         </div>
 
         <div class="field">
-            <label class="field-label" for="loginPasswordConfirm">Confirm Password</label>
-            <input type="password" id="loginPasswordConfirm" placeholder="Re-enter your password" />
+            <label class="field-label" for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" placeholder="Re-enter your password" />
         </div>
 
-        <button type="button" id="signupButton" onclick="doSignup();">Create account</button>
+        <button type="button" id="signupButton" onclick="doCreateUser();">Create account</button>
         <span id="signupResult"></span>
 
         <div id="divider">
@@ -269,7 +269,7 @@
 
         <div id="loginRow">
             Already have an account?
-            <button type="button" id="loginButton" onclick="doLogin();">Sign in</button>
+            <button type="button" id="loginButton" onclick="window.location.href='index.html';">Sign in</button>
         </div>
     </div>
 
