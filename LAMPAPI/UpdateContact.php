@@ -2,7 +2,7 @@
 
 	$inData = getRequestInfo();
 
-	$contactId = $inData["ID"];
+	$id = $inData["ID"];
 	$firstName = $inData["FirstName"];
 	$lastName = $inData["LastName"];
 	$phone = $inData["Phone"];
@@ -17,35 +17,12 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare(
-			"UPDATE Contacts
-			 SET FirstName = ?, LastName = ?, Phone = ?, Email = ?
-			 WHERE ID = ? AND UserID = ?"
-		);
-
-		$stmt->bind_param(
-			"ssssii",
-			$firstName,
-			$lastName,
-			$phone,
-			$email,
-			$contactId,
-			$userId
-		);
-
+		$stmt = $conn->prepare("UPDATE Contacts SET FirstName = ?, LastName = ?, Phone = ?, Email = ? WHERE ID = ? AND UserID = ?");
+		$stmt->bind_param("ssssii", $firstName, $lastName, $phone, $email, $contactId, $userId);
 		$stmt->execute();
-
-		if ($stmt->error)
-		{
-			returnWithError($stmt->error);
-		}
-		else
-		{
-			returnWithError("None");
-		}
-
 		$stmt->close();
 		$conn->close();
+		returnWithError("None")
 	}
 
 	function getRequestInfo()
@@ -53,16 +30,16 @@
 		return json_decode(file_get_contents('php://input'), true);
 	}
 
-	function sendResultInfoAsJson($obj)
+	function sendResultInfoAsJson( $obj )
 	{
 		header('Content-type: application/json');
 		echo $obj;
 	}
-
-	function returnWithError($err)
+	
+	function returnWithError( $err )
 	{
 		$retValue = '{"error":"' . $err . '"}';
-		sendResultInfoAsJson($retValue);
+		sendResultInfoAsJson( $retValue );
 	}
 
 ?>
