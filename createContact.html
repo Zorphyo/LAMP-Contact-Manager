@@ -1,69 +1,266 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>Contact Manager</title>
-	<script type="text/javascript" src="js/md5.js"></script>
-	<script type="text/javascript" src="js/code.js"></script>
-    <link href="css/styles.css" rel="stylesheet">	
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <title>Contact Manager</title>
+    <script type="text/javascript" src="js/md5.js"></script>
+    <script type="text/javascript" src="js/code.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function()
+        {
+            readCookie();
 
-	<script type="text/javascript">
-	document.addEventListener('DOMContentLoaded', function()
-	{
-	    readCookie();
-	
-	    let contactJSON =
-	        sessionStorage.getItem("editingContact");
-	
-	    if(contactJSON)
-	    {
-	        let contact = JSON.parse(contactJSON);
-	
-	        document.getElementById("title").innerHTML =
-	            "Edit Contact";
-	
-	        document.getElementById("inner-title").innerHTML =
-	            "Edit Contact";
-	
-	        document.getElementById("firstName").value =
-	            contact.FirstName;
-	
-	        document.getElementById("lastName").value =
-	            contact.LastName;
-	
-	        document.getElementById("phone").value =
-	            contact.Phone;
-	
-	        document.getElementById("email").value =
-	            contact.Email;
-	
-	        document.getElementById("loginButton").innerHTML =
-	            "Save Changes";
-	
-	        document.getElementById("loginButton").onclick =
-	            saveContact;
-	    }
-	}, false);
-	</script>
-	
+            let contactJSON = sessionStorage.getItem("editingContact");
+
+            if(contactJSON)
+            {
+                let contact = JSON.parse(contactJSON);
+
+                document.getElementById("title").innerHTML = "Edit Contact";
+                document.getElementById("inner-title").innerHTML = "Edit Contact";
+
+                document.getElementById("firstName").value = contact.FirstName;
+                document.getElementById("lastName").value = contact.LastName;
+                document.getElementById("phone").value = contact.Phone;
+                document.getElementById("email").value = contact.Email;
+
+                document.getElementById("submitButton").innerHTML = "Save Changes";
+                document.getElementById("submitButton").onclick = saveContact;
+            }
+        }, false);
+    </script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        body {
+            background-color: #F0EEFF;
+            min-height: 100vh;
+        }
+
+        /* navbar */
+        #navbar {
+            background: #FFFFFF;
+            border-bottom: 0.5px solid #CECBF6;
+            padding: 0 2rem;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        #brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #brand-icon {
+            width: 34px;
+            height: 34px;
+            background-color: #AFA9EC;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        #brand-name {
+            font-size: 17px;
+            font-weight: 600;
+            color: #3C3489;
+        }
+
+        #loggedInDiv {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        #userName {
+            font-size: 13px;
+            color: #7F77DD;
+        }
+
+        #logoutButton {
+            height: 32px;
+            padding: 0 14px;
+            background: none;
+            border: 1.5px solid #CECBF6;
+            border-radius: 8px;
+            color: #534AB7;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        #logoutButton:hover {
+            background: #F0EEFF;
+        }
+
+        /* main content */
+        #main {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* card */
+        #signupDiv {
+            background: #FFFFFF;
+            border: 0.5px solid #CECBF6;
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        #inner-title {
+            display: block;
+            font-size: 19px;
+            font-weight: 600;
+            color: #26215C;
+            letter-spacing: -0.2px;
+            margin-bottom: 4px;
+        }
+
+        #form-subtitle {
+            display: block;
+            font-size: 14px;
+            color: #7F77DD;
+            margin-bottom: 1.5rem;
+        }
+
+        /* name row */
+        .name-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .name-row .field {
+            flex: 1;
+        }
+
+        /* fields */
+        .field {
+            margin-bottom: 0.75rem;
+        }
+
+        .field-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #534AB7;
+            margin-bottom: 6px;
+        }
+
+        /* inputs */
+        #firstName,
+        #lastName,
+        #phone,
+        #email {
+            width: 100%;
+            height: 38px;
+            padding: 0 12px;
+            border: 1.5px solid #CECBF6;
+            border-radius: 8px;
+            background-color: #FFFFFF;
+            color: #26215C;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            outline: none;
+            color-scheme: light;
+        }
+
+        #firstName::placeholder,
+        #lastName::placeholder,
+        #phone::placeholder,
+        #email::placeholder {
+            color: #AFA9EC;
+        }
+
+        #firstName:focus,
+        #lastName:focus,
+        #phone:focus,
+        #email:focus {
+            border-color: #7F77DD;
+            box-shadow: 0 0 0 3px #EEEDFE;
+        }
+
+        /* submit button */
+        #submitButton {
+            width: 100%;
+            height: 40px;
+            margin-top: 1.25rem;
+            background-color: #7F77DD;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        #submitButton:hover {
+            background-color: #534AB7;
+        }
+
+        #loginResult {
+            display: block;
+            font-size: 13px;
+            color: #D85A30;
+            margin-top: 8px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
-<h1 id="title">Create Contact</h1>
+    <h1 id="title" style="display:none;">Create Contact</h1>
 
-<div id="loggedInDiv">
-	<span id="userName"></span><br />
-	<button type="button" id="logoutButton" class="buttons" onclick="doContactSearch();"> Back </button>
-</div>
+    <div id="navbar">
+        <div id="brand">
+            <div id="brand-icon">&#128100;</div>
+            <span id="brand-name">Contact Manager</span>
+        </div>
+        <div id="loggedInDiv">
+            <span id="userName"></span>
+            <button type="button" id="logoutButton" onclick="doContactSearch();">&#8592; Back</button>
+        </div>
+    </div>
 
-<div id="signupDiv">
-	<span id="inner-title">Create Contact</span>
-	<input type="text" id="firstName" placeholder="First Name" /><br />
-	<input type="text" id="lastName" placeholder="Last Name" /><br />
-	<input type="text" id="phone" placeholder="Phone Number" /><br />
-	<input type="text" id="email" placeholder="Email"/><br />
-	<button type="button" id="loginButton" class="buttons" onclick="createContact();"> Create Contact </button>
-	<span id="loginResult"></span>
-</div>
+    <div id="main">
+        <div id="signupDiv">
+            <span id="inner-title">Create Contact</span>
+            <span id="form-subtitle">Fill in the contact details below</span>
 
-</body>
-</html>
+            <div class="name-row">
+                <div class="field">
+                    <label class="field-label" for="firstName">First Name</label>
+                    <input type="text" id="firstName" placeholder="First Name" />
+                </div>
+                <div class="field">
+                    <label class="field-label" for="lastName">Last Name</label>
+                    <input type="text" id="lastName" placeholder="Last Name" />
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="field-label" for="phone">Phone Number</label>
+                <input type="text" id="phone" placeholder="Enter phone number" />
+            </div>
+
+            <div class="field">
+                <label class="field-label" for="email">Email</label>
+                <input type="text" id="email" placeholder="Enter email address" />
+            </div>
+
+            <button type="button" id="submitButton" onclick="createContact();">Create Contact</button>
+            <span id="loginResult"></span>
+        </div>
+    </div>
