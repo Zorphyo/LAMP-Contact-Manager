@@ -109,11 +109,11 @@ function doCreateUser()
     let confirmPassword =
         document.getElementById("confirmPassword").value;
 
-    document.getElementById("loginResult").innerHTML = "";
+    document.getElementById("signupResult").innerHTML = "";
 
     if(password !== confirmPassword)
     {
-        document.getElementById("loginResult").innerHTML =
+        document.getElementById("signupResult").innerHTML =
             "Passwords do not match";
         return;
     }
@@ -150,7 +150,7 @@ function doCreateUser()
             }
             else
             {
-                document.getElementById("loginResult").innerHTML =
+                document.getElementById("signupResult").innerHTML =
                     jsonObject.error;
             }
         }
