@@ -374,6 +374,15 @@ function searchContacts()
 				document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
 				let jsonObject = JSON.parse( xhr.responseText );
 
+				if(jsonObject.error == "No Records Found")
+				{
+				    document.getElementById("contactList").innerHTML = "";
+				    document.getElementById("contactSearchResult").innerHTML =
+				        "No contacts found.";
+				
+				    contacts = [];
+				    return;
+				}
 				contacts = jsonObject.results;
 				
 				for( let i=0; i<jsonObject.results.length; i++ )
