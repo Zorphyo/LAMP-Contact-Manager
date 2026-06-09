@@ -380,15 +380,43 @@ function searchContacts()
 				{
 				    let rowClass = (i % 2 == 0) ? "contactColor1" : "contactColor2";
 				
-				    contactList +=
-				        "<div class='contactRow " + rowClass + "'>" +
-				        "<strong>" + jsonObject.results[i].FirstName + " " +
-				        jsonObject.results[i].LastName + "</strong><br>" +
-				        jsonObject.results[i].Phone + "<br>" + 
-						jsonObject.results[i].Email +
-						"<br><button onclick='editContact(" + i + ")'>Edit</button>" + 
-						"<br><button onclick='deleteContact(" + jsonObject.results[i].ID + ")'>Delete</button>" + 
-				        "</div>";
+				  //   contactList +=
+				  //       "<div class='contactRow " + rowClass + "'>" +
+				  //       "<strong>" + jsonObject.results[i].FirstName + " " +
+				  //       jsonObject.results[i].LastName + "</strong><br>" +
+				  //       jsonObject.results[i].Phone + "<br>" + 
+						// jsonObject.results[i].Email +
+						// "<br><button onclick='editContact(" + i + ")'>Edit</button>" + 
+						// "<br><button onclick='deleteContact(" + jsonObject.results[i].ID + ")'>Delete</button>" + 
+				  //       "</div>";
+
+					contactList +=
+					    "<div class='contactRow'>" +
+					
+					        "<div class='contact-info'>" +
+					            "<div class='contact-name'>" +
+					                jsonObject.results[i].FirstName + " " +
+					                jsonObject.results[i].LastName +
+					            "</div>" +
+					
+					            "<div class='contact-detail'>" +
+					                jsonObject.results[i].Phone +
+					            "</div>" +
+					
+					            "<div class='contact-detail'>" +
+					                jsonObject.results[i].Email +
+					            "</div>" +
+					        "</div>" +
+					
+					        "<div class='contact-actions'>" +
+					            "<button class='btn-edit' onclick='editContact(" + i + ")'>Edit</button>" +
+					
+					            "<button class='btn-delete' onclick='deleteContact(" +
+					                jsonObject.results[i].ID +
+					            ")'>Delete</button>" +
+					        "</div>" +
+					
+					    "</div>";
 				}
 				
 				document.getElementById("contactList").innerHTML = contactList;
