@@ -10,6 +10,8 @@
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331"); 	
 	if( $conn->connect_error )
 	{
+		http_response_code(500);
+
 		returnWithError( $conn->connect_error );
 	}
 	else
@@ -23,10 +25,11 @@
 		{
 			returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
 		}
+
 		else
 		{
 			http_response_code(401);
-			
+
 			returnWithError("Incorrect Username or Password");
 		}
 
@@ -47,7 +50,7 @@
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"' . $err . '"}';
+		$retValue = '{"Error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	

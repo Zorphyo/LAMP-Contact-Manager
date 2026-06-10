@@ -9,16 +9,35 @@
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error) 
 	{
+		http_response_code(500);
+
 		returnWithError( $conn->connect_error );
 	} 
 	else
 	{
-		$stmt = $conn->prepare("INSERT into Users (FirstName,LastName,Login,Password) VALUES(?,?,?,?)");
-		$stmt->bind_param("ssss", $firstName, $lastName, $username, $password);
-		$stmt->execute();
-		$stmt->close();
+		$check = $conn->prepare("SELECT Login FROM Users WHERE Login = ?");
+		$check->bind_param("s", $username);
+		$check->execute();
+		$check->store_result();
+
+		if ($check->num_rows > 0)
+		{
+			http_response_code(409);
+
+			returnWithError("Username Is Already In Use");
+		}
+
+		else
+		{
+			$stmt = $conn->prepare("INSERT into Users (FirstName,LastName,Login,Password) VALUES(?,?,?,?)");
+			$stmt->bind_param("ssss", $firstName, $lastName, $username, $password);
+			$stmt->execute();
+			returnWithError("None");
+			$stmt->close();
+		}
+
+		$check->close();
 		$conn->close();
-		returnWithError("None");
 	}
 
 	function getRequestInfo()
@@ -34,7 +53,7 @@
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"error":"' . $err . '"}';
+		$retValue = '{"Error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
