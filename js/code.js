@@ -357,7 +357,11 @@ function searchContacts()
 	
 	let contactList = "";
 
-	let tmp = {search:srch,userId:userId};
+	let tmp =
+	{
+		UserID: userId,
+		Query: srch
+	};
 	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/SearchContacts.' + extension;
@@ -383,21 +387,12 @@ function searchContacts()
 				    contacts = [];
 				    return;
 				}
-				contacts = jsonObject.results;
+				contacts = jsonObject;
 				
-				for( let i=0; i<jsonObject.results.length; i++ )
+				for( let i=0; i<jsonObject.length; i++ )
 				{
 				    let rowClass = (i % 2 == 0) ? "contactColor1" : "contactColor2";
-				
-				  //   contactList +=
-				  //       "<div class='contactRow " + rowClass + "'>" +
-				  //       "<strong>" + jsonObject.results[i].FirstName + " " +
-				  //       jsonObject.results[i].LastName + "</strong><br>" +
-				  //       jsonObject.results[i].Phone + "<br>" + 
-						// jsonObject.results[i].Email +
-						// "<br><button onclick='editContact(" + i + ")'>Edit</button>" + 
-						// "<br><button onclick='deleteContact(" + jsonObject.results[i].ID + ")'>Delete</button>" + 
-				  //       "</div>";
+
 
 					contactList +=
 					    "<div class='contactRow'>" +
