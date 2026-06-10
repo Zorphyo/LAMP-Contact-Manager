@@ -61,7 +61,7 @@
 			));
 		}*/
 
-		returnWithInfo( $searchResults );
+		returnWithInfo( $result );
 		$stmt->close();
 		$conn->close();
 	}
