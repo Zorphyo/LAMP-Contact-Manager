@@ -144,15 +144,15 @@ function doCreateUser()
         {
             let jsonObject = JSON.parse(xhr.responseText);
 
-            if(jsonObject.error == "None")
-            {
-                window.location.href = "index.html";
-            }
-            else
-            {
-                document.getElementById("signupResult").innerHTML =
-                    jsonObject.error;
-            }
+            if(jsonObject.Success)
+			{
+			    window.location.href = "index.html";
+			}
+			else if(jsonObject.Error)
+			{
+			    document.getElementById("signupResult").innerHTML =
+			        jsonObject.Error;
+			}
         }
     };
 
@@ -474,15 +474,15 @@ function createContact()
             {
                 let jsonObject = JSON.parse(xhr.responseText);
 
-                if (jsonObject.error != "None")
-                {
-                    document.getElementById("loginResult").innerHTML =
-                        jsonObject.error;
-                }
-                else
-                {
-                     window.location.href = "contactSearch.html";
-                }
+                if(jsonObject.Success)
+				{
+				    window.location.href = "contactSearch.html";
+				}
+				else if(jsonObject.Error)
+				{
+				    document.getElementById("loginResult").innerHTML =
+				        jsonObject.Error;
+				}
             }
         };
 
