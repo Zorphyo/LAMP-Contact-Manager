@@ -22,22 +22,23 @@
 		
 		$result = $stmt->get_result();
 		
-		// while($row = $result->fetch_assoc())
-		// {
-		// 	if( $searchCount > 0 )
-		// 	{
-		// 		$searchResults .= ",";
-		// 	}
-		// 	$searchCount++;
-		// 	$results = array();
+		 while($row = $result->fetch_assoc())
+		 {
+		 	if( $searchCount > 0 )
+		 	{
+		 		$searchResults .= ",";
+		 	}
 
-		// 	while($row = $result->fetch_assoc())
-		// 	{
-		// 	    $results[] = $row;
-		// 	}
-		// }
+		 	$searchCount++;
+		 	$results = array();
 
-		$results = array();
+		 	while($row = $result->fetch_assoc())
+		 	{
+		 	    $results[] = $row;
+			}
+		}
+
+		/*$results = array();
 
 		while($row = $result->fetch_assoc())
 		{
@@ -58,8 +59,9 @@
 			    "results" => $results,
 			    "error" => ""
 			));
-		}
-		
+		}*/
+
+		returnWithInfo( $results );
 		$stmt->close();
 		$conn->close();
 	}
@@ -83,7 +85,7 @@
 	
 	function returnWithInfo( $searchResults )
 	{
-		$retValue = '{"results":[' . $searchResults . '],"error":"None"}';
+		$retValue = '{"Results":[' . $searchResults . '],"Error":"None"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
