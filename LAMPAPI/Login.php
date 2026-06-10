@@ -25,7 +25,7 @@
 		}
 		else
 		{
-			returnWithError("No Records Found");
+			returnWithError("Incorrect Username or Password");
 		}
 
 		$stmt->close();
@@ -45,7 +45,16 @@
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+		$retValue = '{"' . $err . '"}';
+
+		http_response_code(400);
+		
+		echo json_encode([
+			'status' => 'error',
+			'code' => 400,
+			'message' => 'Username or Password is Incorrect'
+		]);
+
 		sendResultInfoAsJson( $retValue );
 	}
 	
