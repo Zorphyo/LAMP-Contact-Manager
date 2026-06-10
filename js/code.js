@@ -387,9 +387,9 @@ function searchContacts()
 				    contacts = [];
 				    return;
 				}
-				contacts = jsonObject;
+				contacts = jsonObject.results;
 				
-				for( let i=0; i<jsonObject.length; i++ )
+				for( let i=0; i<jsonObject.results.length; i++ )
 				{
 				    let rowClass = (i % 2 == 0) ? "contactColor1" : "contactColor2";
 
