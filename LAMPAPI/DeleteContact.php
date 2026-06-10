@@ -9,6 +9,7 @@
 	{
 		returnWithError($conn->connect_error);
 	}
+	
 	else
 	{
 		$stmt = $conn->prepare("DELETE FROM Contacts WHERE ID = ?");
@@ -16,7 +17,7 @@
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
-		returnWithError("None");
+		returnWithSuccess("Contact Successfully Deleted");
 	}
 
 	function getRequestInfo()
@@ -32,7 +33,13 @@
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"error":"' . $err . '"}';
+		$retValue = '{"Error":"' . $err . '"}';
+		sendResultInfoAsJson( $retValue );
+	}
+
+	function returnWithSuccess( $success )
+	{
+		$retValue = '{"Success":"' . $success . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 

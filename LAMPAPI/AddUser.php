@@ -7,12 +7,12 @@
     $password = $inData["Password"];
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
+
 	if ($conn->connect_error) 
 	{
-		http_response_code(500);
-
 		returnWithError( $conn->connect_error );
 	} 
+
 	else
 	{
 		$check = $conn->prepare("SELECT Login FROM Users WHERE Login = ?");
@@ -32,8 +32,8 @@
 			$stmt = $conn->prepare("INSERT into Users (FirstName,LastName,Login,Password) VALUES(?,?,?,?)");
 			$stmt->bind_param("ssss", $firstName, $lastName, $username, $password);
 			$stmt->execute();
-			returnWithError("None");
 			$stmt->close();
+			returnWithSuccess("User Registered Successfully");
 		}
 
 		$check->close();
@@ -54,6 +54,12 @@
 	function returnWithError( $err )
 	{
 		$retValue = '{"Error":"' . $err . '"}';
+		sendResultInfoAsJson( $retValue );
+	}
+
+	function returnWithSuccess( $success )
+	{
+		$retValue = '{"Success":"' . $success . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
