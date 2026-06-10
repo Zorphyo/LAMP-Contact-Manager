@@ -144,15 +144,15 @@ function doCreateUser()
         {
             let jsonObject = JSON.parse(xhr.responseText);
 
-            if(jsonObject.error == "None")
-            {
-                window.location.href = "index.html";
-            }
-            else
-            {
-                document.getElementById("signupResult").innerHTML =
-                    jsonObject.error;
-            }
+            if(jsonObject.Success)
+			{
+			    window.location.href = "index.html";
+			}
+			else if(jsonObject.Error)
+			{
+			    document.getElementById("signupResult").innerHTML =
+			        jsonObject.Error;
+			}
         }
     };
 
@@ -357,7 +357,11 @@ function searchContacts()
 	
 	let contactList = "";
 
-	let tmp = {search:srch,userId:userId};
+	let tmp =
+	{
+		UserID: userId,
+		Query: srch
+	};
 	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/SearchContacts.' + extension;
@@ -383,37 +387,28 @@ function searchContacts()
 				    contacts = [];
 				    return;
 				}
-				contacts = jsonObject.results;
+				contacts = jsonObject;
 				
-				for( let i=0; i<jsonObject.results.length; i++ )
+				for( let i=0; i<jsonObject.length; i++ )
 				{
 				    let rowClass = (i % 2 == 0) ? "contactColor1" : "contactColor2";
-				
-				  //   contactList +=
-				  //       "<div class='contactRow " + rowClass + "'>" +
-				  //       "<strong>" + jsonObject.results[i].FirstName + " " +
-				  //       jsonObject.results[i].LastName + "</strong><br>" +
-				  //       jsonObject.results[i].Phone + "<br>" + 
-						// jsonObject.results[i].Email +
-						// "<br><button onclick='editContact(" + i + ")'>Edit</button>" + 
-						// "<br><button onclick='deleteContact(" + jsonObject.results[i].ID + ")'>Delete</button>" + 
-				  //       "</div>";
+
 
 					contactList +=
 					    "<div class='contactRow'>" +
 					
 					        "<div class='contact-info'>" +
 					            "<div class='contact-name'>" +
-					                jsonObject.results[i].FirstName + " " +
-					                jsonObject.results[i].LastName +
+					                jsonObject[i].FirstName + " " +
+					                jsonObject[i].LastName +
 					            "</div>" +
 					
 					            "<div class='contact-detail'>" +
-					                jsonObject.results[i].Phone +
+					                jsonObject[i].Phone +
 					            "</div>" +
 					
 					            "<div class='contact-detail'>" +
-					                jsonObject.results[i].Email +
+					                jsonObject[i].Email +
 					            "</div>" +
 					        "</div>" +
 					
@@ -421,7 +416,7 @@ function searchContacts()
 					            "<button class='btn-edit' onclick='editContact(" + i + ")'>Edit</button>" +
 					
 					            "<button class='btn-delete' onclick='deleteContact(" +
-					                jsonObject.results[i].ID +
+					                jsonObject[i].ID +
 					            ")'>Delete</button>" +
 					        "</div>" +
 					
@@ -474,15 +469,15 @@ function createContact()
             {
                 let jsonObject = JSON.parse(xhr.responseText);
 
-                if (jsonObject.error != "None")
-                {
-                    document.getElementById("loginResult").innerHTML =
-                        jsonObject.error;
-                }
-                else
-                {
-                     window.location.href = "contactSearch.html";
-                }
+                if(jsonObject.Success)
+				{
+				    window.location.href = "contactSearch.html";
+				}
+				else if(jsonObject.Error)
+				{
+				    document.getElementById("loginResult").innerHTML =
+				        jsonObject.Error;
+				}
             }
         };
 
