@@ -3,8 +3,9 @@
 
 	$inData = getRequestInfo();
 	
-	$login = $inData["Login"];
-	$password = $inData["Password"];
+	$id = 0;
+	$firstName = "";
+	$lastName = "";
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331"); 	
 
@@ -15,14 +16,14 @@
 
 	else
 	{
-		$stmt = $conn->prepare("SELECT ID, FirstName, LastName FROM Users WHERE Login = ? AND Password = ?");
-		$stmt->bind_param("ss", $login, $password);
+		$stmt = $conn->prepare("SELECT ID,firstName,lastName FROM Users WHERE Login=? AND Password =?");
+		$stmt->bind_param("ss", $inData["Login"], $inData["Password"]);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
 		if( $row = $result->fetch_assoc()  )
 		{
-			returnWithInfo( $row['FirstName'], $row['LastName'], $row['ID'] );
+			returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
 		}
 
 		else
