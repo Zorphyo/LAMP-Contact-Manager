@@ -387,9 +387,9 @@ function searchContacts()
 				    contacts = [];
 				    return;
 				}
-				contacts = jsonObject.results;
+				contacts = jsonObject;
 				
-				for( let i=0; i<jsonObject.results.length; i++ )
+				for( let i=0; i<jsonObject.length; i++ )
 				{
 				    let rowClass = (i % 2 == 0) ? "contactColor1" : "contactColor2";
 
@@ -399,16 +399,16 @@ function searchContacts()
 					
 					        "<div class='contact-info'>" +
 					            "<div class='contact-name'>" +
-					                jsonObject.results[i].FirstName + " " +
-					                jsonObject.results[i].LastName +
+					                jsonObject[i].FirstName + " " +
+					                jsonObject[i].LastName +
 					            "</div>" +
 					
 					            "<div class='contact-detail'>" +
-					                jsonObject.results[i].Phone +
+					                jsonObject[i].Phone +
 					            "</div>" +
 					
 					            "<div class='contact-detail'>" +
-					                jsonObject.results[i].Email +
+					                jsonObject[i].Email +
 					            "</div>" +
 					        "</div>" +
 					
@@ -416,7 +416,7 @@ function searchContacts()
 					            "<button class='btn-edit' onclick='editContact(" + i + ")'>Edit</button>" +
 					
 					            "<button class='btn-delete' onclick='deleteContact(" +
-					                jsonObject.results[i].ID +
+					                jsonObject[i].ID +
 					            ")'>Delete</button>" +
 					        "</div>" +
 					
