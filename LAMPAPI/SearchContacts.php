@@ -24,12 +24,24 @@
 		
 		$result = $stmt->get_result();
 		
-		while ($row = mysqli_fetch_row($result))
+		while($row = $result->fetch_assoc())
 		{
-			$resultArray[] = $row 
+			if( $searchCount > 0 )
+			{
+				$searchResults .= ",";
+			}
+			$searchCount++;
+			$searchResults .= '"' . $row["FirstName"] . '"';
 		}
-
-		echo json_encode($resultArray);
+		
+		if( $searchCount == 0 )
+		{
+			returnWithError( "No Records Found" );
+		}
+		else
+		{
+			returnWithInfo( $searchResults );
+		}
 		
 		$stmt->close();
 		$conn->close();
