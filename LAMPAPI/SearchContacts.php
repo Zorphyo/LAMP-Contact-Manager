@@ -15,7 +15,7 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("SELECT FirstName, LastName, Phone, Email, UserID FROM Contacts WHERE (FirstName LIKE ? OR LastName LIKE ?) AND UserID = ?");
+		$stmt = $conn->prepare("SELECT DISTINCT FirstName, LastName, Phone, Email, UserID FROM Contacts WHERE (FirstName LIKE ? OR LastName LIKE ?) AND UserID = ?");
 		$contactName = "%" . $query . "%";
 		$stmt->bind_param("ssi", $contactName, $contactName, $userId);
 		$stmt->execute();
@@ -61,7 +61,7 @@
 			));
 		}*/
 
-		returnWithInfo( $results );
+		returnWithInfo( $searchResults );
 		$stmt->close();
 		$conn->close();
 	}
@@ -85,7 +85,7 @@
 	
 	function returnWithInfo( $searchResults )
 	{
-		$retValue = '{"Results":[' . $searchResults . '],"Error":"None"}';
+		$retValue = '{"Results":[' . $searchResults . ']}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
