@@ -25,6 +25,8 @@
 		}
 		else
 		{
+			http_response_code(401);
+			
 			returnWithError("Incorrect Username or Password");
 		}
 
@@ -46,15 +48,6 @@
 	function returnWithError( $err )
 	{
 		$retValue = '{"' . $err . '"}';
-
-		http_response_code(401);
-		
-		#echo json_encode([
-			#status' => 'error',
-			#'code' => 400,
-			#'message' => 'Username or Password is Incorrect'
-		#]);
-
 		sendResultInfoAsJson( $retValue );
 	}
 	
