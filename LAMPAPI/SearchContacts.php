@@ -2,17 +2,19 @@
 
 	$inData = getRequestInfo();
 
-	$userId = $inData["UserId"];
+	$userId = $inData["UserID"];
 	$query = $inData["Query"];
 	
 	$searchResults = "";
 	$searchCount = 0;
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
+
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );
 	} 
+
 	else
 	{
 		$stmt = $conn->prepare("SELECT DISTINCT FirstName, LastName, Phone, Email, UserID FROM Contacts WHERE (FirstName LIKE ? OR LastName LIKE ?) AND UserID = ?");
@@ -22,46 +24,13 @@
 		
 		$result = $stmt->get_result();
 		
-		 while($row = $result->fetch_assoc())
-		 {
-		 	if( $searchCount > 0 )
-		 	{
-		 		$searchResults .= ",";
-		 	}
-
-		 	$searchCount++;
-		 	$results = array();
-
-		 	while($row = $result->fetch_assoc())
-		 	{
-		 	    $results[] = $row;
-			}
-		}
-
-		/*$results = array();
-
-		while($row = $result->fetch_assoc())
+		while ($row = mysqli_fetch_row($result))
 		{
-		    $results[] = $row;
+			$resultArray[] = $row 
 		}
+
+		echo json_encode($resultArray);
 		
-		$searchCount = count($results);
-		
-		if( $searchCount == 0 )
-		{
-			returnWithError( "No Records Found" );
-		}
-
-		else
-		{
-			//returnWithInfo( $searchResults );
-			echo json_encode(array(
-			    "results" => $results,
-			    "error" => ""
-			));
-		}*/
-
-		returnWithInfo( $result );
 		$stmt->close();
 		$conn->close();
 	}
@@ -85,7 +54,7 @@
 	
 	function returnWithInfo( $searchResults )
 	{
-		$retValue = '{"Results":[' . $searchResults . ']}';
+		$retValue = '{"results":[' . $searchResults . ']}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
