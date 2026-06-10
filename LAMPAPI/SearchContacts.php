@@ -23,25 +23,14 @@
 		$stmt->execute();
 		
 		$result = $stmt->get_result();
+		$resultArray = array();
 		
 		while($row = $result->fetch_assoc())
 		{
-			if( $searchCount > 0 )
-			{
-				$searchResults .= ",";
-			}
-			$searchCount++;
-			$searchResults .= '"' . $row["FirstName"] . '"';
+			$resultArray[] = $row;
 		}
-		
-		if( $searchCount == 0 )
-		{
-			returnWithError( "No Records Found" );
-		}
-		else
-		{
-			returnWithInfo( $searchResults );
-		}
+
+		echo json_encode($resultArray);
 		
 		$stmt->close();
 		$conn->close();
@@ -66,7 +55,7 @@
 	
 	function returnWithInfo( $searchResults )
 	{
-		$retValue = '{"results":[' . $searchResults . ']}';
+		$retValue = '{"Results":[' . $searchResults . ']}';
 		sendResultInfoAsJson( $retValue );
 	}
 	

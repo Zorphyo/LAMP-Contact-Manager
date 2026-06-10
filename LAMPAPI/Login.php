@@ -13,7 +13,7 @@
 	{
 		returnWithError( $conn->connect_error );
 	}
-	
+
 	else
 	{
 		$stmt = $conn->prepare("SELECT ID,firstName,lastName FROM Users WHERE Login=? AND Password =?");
@@ -56,7 +56,7 @@
 	
 	function returnWithInfo( $firstName, $lastName, $id )
 	{
-		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":"None"}';
+		$retValue = '{"ID":' . $id . ',"FirstName":"' . $firstName . '","LastName":"' . $lastName . '}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
