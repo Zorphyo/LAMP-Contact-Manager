@@ -259,15 +259,15 @@ function deleteContact(contactId)
         {
             let jsonObject = JSON.parse(xhr.responseText);
 
-            if(jsonObject.error == "None")
-            {
-                searchContacts();
-            }
-            else
-            {
-                document.getElementById("contactSearchResult").innerHTML =
-                    jsonObject.error;
-            }
+            if(jsonObject.Success)
+			{
+			    searchContacts();
+			}
+			else if(jsonObject.Error)
+			{
+			    document.getElementById("contactSearchResult").innerHTML =
+			        jsonObject.Error;
+			}
         }
     };
 
