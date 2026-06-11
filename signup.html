@@ -14,7 +14,7 @@
         }
 
         body {
-            background-color: #F0EEFF;
+            background: linear-gradient(180deg, #F9F5E9 0%, #E8DFC9 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -23,29 +23,31 @@
         }
 
         /* brand header */
-        #brand {
+         #brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+#brand-main {
+    font-size: 42px;
+    font-weight: 800;
+    color: #5C3D2E;
+    line-height: 1;
+}
+
+#brand-sub {
+    font-size: 20px;
+    font-weight: 600;
+    color: #7A6248;
+    margin-top: 4px;
+    letter-spacing: 1px;
+}
+        #brand-center {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 2rem;
-        }
-
-        #brand-icon {
-            width: 40px;
-            height: 40px;
-            background-color: #AFA9EC;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-
-        #brand-name {
-            font-size: 21px;
-            font-weight: 600;
-            color: #3C3489;
-            letter-spacing: -0.3px;
+            gap: 12px;
         }
 
         /* signup card */
@@ -62,7 +64,7 @@
             display: block;
             font-size: 19px;
             font-weight: 600;
-            color: #26215C;
+            color: #5C3D2E;
             letter-spacing: -0.2px;
             margin-bottom: 4px;
         }
@@ -70,7 +72,7 @@
         #signup-subtitle {
             display: block;
             font-size: 14px;
-            color: #7F77DD;
+            color: #7A6248;
             margin-bottom: 1.5rem;
         }
 
@@ -90,12 +92,8 @@
         }
 
         .field-label {
-            display: block;
-            font-size: 13px;
-            font-weight: 500;
-            color: #534AB7;
-            margin-bottom: 6px;
-        }
+           color: #6B4F3A;
+       }
 
         /* inputs */
         #firstName,
@@ -138,7 +136,7 @@
             width: 100%;
             height: 40px;
             margin-top: 1.25rem;
-            background-color: #7F77DD;
+            background-color: #7A9E48;
             color: #FFFFFF;
             border: none;
             border-radius: 8px;
@@ -148,8 +146,12 @@
             cursor: pointer;
         }
 
+        #loginButton:hover {
+            background-color: #5F7C36;
+        }
+
         #signupButton:hover {
-            background-color: #534AB7;
+            background-color: #5F7C36;
         }
 
         #signupResult {
@@ -183,7 +185,7 @@
         #loginRow {
             text-align: center;
             font-size: 13px;
-            color: #7F77DD;
+            color: #7A6248;
             background: none !important;
             border: none !important;
             padding: 0 !important;
@@ -194,7 +196,7 @@
         #loginButton {
             background: none;
             border: none;
-            color: #534AB7;
+            color: #5F7C36;
             font-family: 'DM Sans', sans-serif;
             font-size: 13px;
             font-weight: 600;
@@ -205,14 +207,50 @@
         #loginButton:hover {
             text-decoration: underline;
         }
+
+#pageLayout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+#contentArea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.side-goat {
+    width: 320px;
+    max-width: 25vw;
+    height: auto;
+    user-select: none;
+    pointer-events: none;
+}
+
+.right-goat {
+    transform: scaleX(-1);
+}
     </style>
 </head>
 <body>
 
+<div id="pageLayout">
+
+    <img class="side-goat left-goat"
+         src="images/JumpingGoat.png"
+         alt="Goat" />
+
+    <div id="contentArea">
+
     <div id="brand">
-        <div id="brand-icon">&#128100;</div>
-        <span id="brand-name">Contact Manager</span>
-    </div>
+            <span id="brand-main">Lowkey Goated</span>
+            <span id="brand-sub">Contact Manager</span>
+        </div>
 
     <div id="signupDiv">
         <span id="inner-title">Create an account</span>
@@ -252,9 +290,18 @@
         </div>
 
         <div id="loginRow">
-            Already have an account?
+            Already GOATed?
             <button type="button" id="loginButton" onclick="window.location.href='index.html';">Sign in</button>
         </div>
     </div>
+
+
+</div>
+
+    <img class="side-goat right-goat"
+         src="images/JumpingGoat.png"
+         alt="Goat" />
+
+</div>
 </body>
 </html>
