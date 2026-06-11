@@ -185,11 +185,25 @@ function doContactSearch()
 }
 
 let contacts = [];
+// function editContact(index)
+// {
+//     sessionStorage.setItem(
+//         "editingContact",
+//         JSON.stringify(contacts[index])
+//     );
+
+//     window.location.href = "createContact.html";
+// }
 function editContact(index)
 {
     sessionStorage.setItem(
         "editingContact",
         JSON.stringify(contacts[index])
+    );
+
+    sessionStorage.setItem(
+        "lastSearch",
+        document.getElementById("searchText").value
     );
 
     window.location.href = "createContact.html";
