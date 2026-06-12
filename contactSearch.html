@@ -8,6 +8,14 @@
         document.addEventListener('DOMContentLoaded', function()
         {
             readCookie();
+
+            let lastSearch = sessionStorage.getItem("lastSearch");
+
+            if(lastSearch)
+            {
+                document.getElementById("searchText").value = lastSearch;
+                searchContacts();
+            }
         }, false);
     </script>
     <style>
