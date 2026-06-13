@@ -409,7 +409,7 @@ function searchContacts()
 
 
 					contactList +=
-					    "<div class='contactRow'>" +
+					    "<div class='contactRow " + rowClass + "'>" +
 					
 					        "<div class='contact-info'>" +
 					            "<div class='contact-name'>" +
