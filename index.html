@@ -4,8 +4,31 @@
     <title>Contact Manager</title>
     <script type="text/javascript" src="js/md5.js"></script>
     <script type="text/javascript" src="js/code.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function()
+        {
+            readCookie();
 
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+            let contactJSON = sessionStorage.getItem("editingContact");
+
+            if(contactJSON)
+            {
+                let contact = JSON.parse(contactJSON);
+
+                document.getElementById("title").innerHTML = "Edit Contact";
+                document.getElementById("inner-title").innerHTML = "Edit Contact";
+
+                document.getElementById("firstName").value = contact.FirstName;
+                document.getElementById("lastName").value = contact.LastName;
+                document.getElementById("phone").value = contact.Phone;
+                document.getElementById("email").value = contact.Email;
+
+                document.getElementById("submitButton").innerHTML = "Save Changes";
+                document.getElementById("submitButton").onclick = saveContact;
+            }
+        }, false);
+    </script>
     <style>
         * {
             box-sizing: border-box;
@@ -16,44 +39,95 @@
 
         body {
             background: linear-gradient(180deg, #F9F5E9 0%, #E8DFC9 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             min-height: 100vh;
         }
 
-        /* brand header */
+        /* navbar */
+        #navbar {
+            background: #FFFDF7;
+            border-bottom: 2px solid #D7C7A5;
+            padding: 0 2rem;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
         #brand {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 2rem;
-}
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
 
-#brand-main {
-    font-size: 42px;
-    font-weight: 800;
-    color: #5C3D2E;
-    line-height: 1;
-}
+        #brand-main {
+            font-size: 20px;
+            font-weight: 800;
+            color: #5C3D2E;
+        }
 
-#brand-sub {
-    font-size: 20px;
-    font-weight: 600;
-    color: #7A6248;
-    margin-top: 4px;
-    letter-spacing: 1px;
-}
-        #brand-center {
+        #brand-sub {
+            font-size: 11px;
+            font-weight: 600;
+            color: #7A6248;
+            letter-spacing: 1px;
+        }
+
+        #loggedInDiv {
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        /* login card */
-        #loginDiv {
-            background-color: #FFFDF7;
+        #userName {
+            font-size: 13px;
+            color: #7A6248;
+        }
+
+        #logoutButton {
+            height: 32px;
+            padding: 0 14px;
+            background: none;
+            border: 1.5px solid #D7C7A5;
+            border-radius: 8px;
+            color: #5C3D2E;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        #logoutButton:hover {
+            background: #F0E9D8;
+        }
+
+        /* page layout */
+        #pageLayout {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 40px;
+            width: 100%;
+            padding: 2rem 20px;
+            min-height: calc(100vh - 56px);
+        }
+
+        .side-goat {
+            width: 220px;
+            max-width: 18vw;
+            height: auto;
+            user-select: none;
+            pointer-events: none;
+            margin-top: 2rem;
+        }
+
+        .right-goat {
+            transform: scaleX(-1);
+        }
+
+        /* card */
+        #signupDiv {
+            background: #FFFDF7;
             border: 2px solid #D7C7A5;
             border-radius: 16px;
             padding: 2rem;
@@ -64,53 +138,78 @@
 
         #inner-title {
             display: block;
-            font-size: 22px;
-            font-weight: 700;
+            font-size: 19px;
+            font-weight: 600;
             color: #5C3D2E;
+            letter-spacing: -0.2px;
             margin-bottom: 4px;
         }
 
-        #login-subtitle {
+        #form-subtitle {
             display: block;
             font-size: 14px;
             color: #7A6248;
-            margin-bottom: 1.75rem;
+            margin-bottom: 1.5rem;
         }
 
-        /* labels */
+        /* name row */
+        .name-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .name-row .field {
+            flex: 1;
+        }
+
+        /* fields */
+        .field {
+            margin-bottom: 0.75rem;
+        }
+
         .field-label {
-           color: #6B4F3A;
-       }
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #6B4F3A;
+            margin-bottom: 6px;
+        }
 
         /* inputs */
-        #loginName,
-        #loginPassword {
+        #firstName,
+        #lastName,
+        #phone,
+        #email {
             width: 100%;
             height: 38px;
             padding: 0 12px;
-            border: 1.5px solid #CECBF6;
+            border: 1.5px solid #D7C7A5;
             border-radius: 8px;
             background-color: #FFFFFF;
-            color: #26215C;
+            color: #5C3D2E;
             font-family: 'DM Sans', sans-serif;
             font-size: 14px;
             outline: none;
             color-scheme: light;
         }
 
-        #loginName::placeholder,
-        #loginPassword::placeholder {
-            color: #AFA9EC;
+        #firstName::placeholder,
+        #lastName::placeholder,
+        #phone::placeholder,
+        #email::placeholder {
+            color: #B5A48A;
         }
 
-        #loginName:focus,
-        #loginPassword:focus {
-           border-color: #7A9E48;
-           box-shadow: 0 0 0 3px #E8F2D8;
-}
+        #firstName:focus,
+        #lastName:focus,
+        #phone:focus,
+        #email:focus {
+            border-color: #7A9E48;
+            box-shadow: 0 0 0 3px #E8F2D8;
+        }
 
-        /* sign in button */
-        #loginButton {
+        /* submit button */
+        #submitButton {
             width: 100%;
             height: 40px;
             margin-top: 1.25rem;
@@ -124,7 +223,7 @@
             cursor: pointer;
         }
 
-        #loginButton:hover {
+        #submitButton:hover {
             background-color: #5F7C36;
         }
 
@@ -135,82 +234,24 @@
             margin-top: 8px;
             text-align: center;
         }
-
-        /* divider */
-        #divider {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 1rem 0;
-        }
-
-        #divider hr {
-            flex: 1;
-            border: none;
-            border-top: 0.5px solid #CECBF6;
-        }
-
-        #divider span {
-            font-size: 12px;
-            color: #AFA9EC;
-        }
-
-        /* sign up section */
-        #signupDiv {
-            text-align: center;
-            font-size: 13px;
-            color: #7A6248;
-            background: none !important;
-            border: none !important;
-            padding: 0 !important;
-            margin: 0 !important;
-            width: auto !important;
-        }
-
-        #signupButton {
-            background: none;
-            border: none;
-            color: #5F7C36;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            padding: 0;
-        }
-
-        #signupButton:hover {
-            text-decoration: underline;
-        }
-#pageLayout {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
-    width: 100%;
-    min-height: 100vh;
-    padding: 20px;
-}
-
-#contentArea {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.side-goat {
-    width: 320px;
-    max-width: 25vw;
-    height: auto;
-    user-select: none;
-    pointer-events: none;
-}
-
-.right-goat {
-    transform: scaleX(-1);
-}
     </style>
 </head>
 <body>
+
+
+    <div id="contentArea">
+    <h1 id="title" style="display:none;">Create Contact</h1>
+
+    <div id="navbar">
+        <div id="brand">
+            <span id="brand-main">Lowkey Goated</span>
+            <span id="brand-sub">Contact Manager</span>
+        </div>
+        <div id="loggedInDiv">
+            <span id="userName"></span>
+            <button type="button" id="logoutButton" onclick="doContactSearch();">&#8592; Back</button>
+        </div>
+    </div>
 
     <div id="pageLayout">
 
@@ -218,43 +259,40 @@
          src="images/JumpingGoat.png"
          alt="Goat" />
 
-    <div id="contentArea">
 
-        <div id="brand">
-            <span id="brand-main">Lowkey Goated</span>
-            <span id="brand-sub">Contact Manager</span>
-        </div>
+        <div id="signupDiv">
+            <span id="inner-title">Create Contact</span>
+            <span id="form-subtitle">Fill in the contact details below</span>
 
-        <div id="loginDiv">
-            <span id="inner-title">Welcome back, GOAT</span>
-            <span id="login-subtitle">Sign in to your account to continue</span>
+            <div class="name-row">
+                <div class="field">
+                    <label class="field-label" for="firstName">First Name</label>
+                    <input type="text" id="firstName" placeholder="First Name" />
+                </div>
+                <div class="field">
+                    <label class="field-label" for="lastName">Last Name</label>
+                    <input type="text" id="lastName" placeholder="Last Name" />
+                </div>
+            </div>
 
-            <label class="field-label" for="loginName">Username</label>
-            <input type="text" id="loginName" placeholder="Enter your username" />
+            <div class="field">
+                <label class="field-label" for="phone">Phone Number</label>
+                <input type="text" id="phone" placeholder="Enter phone number" />
+            </div>
 
-            <label class="field-label" for="loginPassword">Password</label>
-            <input type="password" id="loginPassword" placeholder="Enter your password" />
+            <div class="field">
+                <label class="field-label" for="email">Email</label>
+                <input type="text" id="email" placeholder="Enter email address" />
+            </div>
 
-            <button type="button" id="loginButton" onclick="doLogin();">Sign in</button>
+            <button type="button" id="submitButton" onclick="createContact();">Create Contact</button>
             <span id="loginResult"></span>
 
-            <div id="divider">
-                <hr /><span>or</span><hr />
-            </div>
-
-            <div id="signupDiv">
-                Don't have an account?
-                <button type="button" id="signupButton" onclick="doSignup();">Sign up</button>
-            </div>
-        </div>
-
-    </div>
+</div>
 
     <img class="side-goat right-goat"
          src="images/JumpingGoat.png"
          alt="Goat" />
 
 </div>
-
-</body>
-</html>
+        </div>
