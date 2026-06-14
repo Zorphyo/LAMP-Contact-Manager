@@ -139,22 +139,30 @@ function doCreateUser()
     );
 
     xhr.onreadystatechange = function()
-    {
-        if(this.readyState == 4 && this.status == 200)
-        {
-            let jsonObject = JSON.parse(xhr.responseText);
-
-            if(jsonObject.Success)
-			{
-			    window.location.href = "index.html";
-			}
-			else if(jsonObject.Error)
-			{
-			    document.getElementById("signupResult").innerHTML =
-			        jsonObject.Error;
-			}
-        }
-    };
+	{
+	    if(this.readyState == 4)
+	    {
+	        try
+	        {
+	            let jsonObject = JSON.parse(xhr.responseText);
+	
+	            if(jsonObject.Success)
+	            {
+	                window.location.href = "index.html";
+	            }
+	            else if(jsonObject.Error)
+	            {
+	                document.getElementById("signupResult").innerHTML =
+	                    jsonObject.Error;
+	            }
+	        }
+	        catch(err)
+	        {
+	            document.getElementById("signupResult").innerHTML =
+	                "Unexpected server response.";
+	        }
+	    }
+	};
 
     xhr.send(jsonPayload);
 }
