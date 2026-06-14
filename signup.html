@@ -243,57 +243,58 @@
          alt="Goat" />
 
     <div id="contentArea">
-
-    <div id="brand">
+    <main>
+        
+        <div id="brand">
             <span id="brand-main">Lowkey Goated</span>
             <span id="brand-sub">Contact Manager</span>
         </div>
 
-    <div id="signupDiv">
-        <span id="inner-title">Create an account</span>
-        <span id="signup-subtitle">Fill in your details to get started</span>
-
-        <div class="name-row">
-            <div class="field">
-                <label class="field-label" for="firstName">First Name</label>
-                <input type="text" id="firstName" placeholder="First Name" />
+        <div id="signupDiv">
+            <span id="inner-title">Create an account</span>
+            <span id="signup-subtitle">Fill in your details to get started</span>
+    
+            <div class="name-row">
+                <div class="field">
+                    <label class="field-label" for="firstName">First Name</label>
+                    <input type="text" id="firstName" placeholder="First Name" />
+                </div>
+                <div class="field">
+                    <label class="field-label" for="lastName">Last Name</label>
+                    <input type="text" id="lastName" placeholder="Last Name" />
+                </div>
             </div>
+    
             <div class="field">
-                <label class="field-label" for="lastName">Last Name</label>
-                <input type="text" id="lastName" placeholder="Last Name" />
+                <label class="field-label" for="username">Username</label>
+                <input type="text" id="username" placeholder="Enter your username" />
+            </div>
+    
+            <div class="field">
+                <label class="field-label" for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" />
+            </div>
+    
+            <div class="field">
+                <label class="field-label" for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" placeholder="Re-enter your password" />
+            </div>
+    
+            <button type="button" id="signupButton" onclick="doCreateUser();">Create account</button>
+            <span id="signupResult"></span>
+    
+            <div id="divider">
+                <hr /><span>or</span><hr />
+            </div>
+    
+            <div id="loginRow">
+                Already GOATed?
+                <button type="button" id="loginButton" onclick="window.location.href='index.html';">Sign in</button>
             </div>
         </div>
 
-        <div class="field">
-            <label class="field-label" for="username">Username</label>
-            <input type="text" id="username" placeholder="Enter your username" />
-        </div>
-
-        <div class="field">
-            <label class="field-label" for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter your password" />
-        </div>
-
-        <div class="field">
-            <label class="field-label" for="confirmPassword">Confirm Password</label>
-            <input type="password" id="confirmPassword" placeholder="Re-enter your password" />
-        </div>
-
-        <button type="button" id="signupButton" onclick="doCreateUser();">Create account</button>
-        <span id="signupResult"></span>
-
-        <div id="divider">
-            <hr /><span>or</span><hr />
-        </div>
-
-        <div id="loginRow">
-            Already GOATed?
-            <button type="button" id="loginButton" onclick="window.location.href='index.html';">Sign in</button>
-        </div>
+    </main>
     </div>
-
-
-</div>
 
     <img class="side-goat right-goat"
          src="images/JumpingGoat.png"
