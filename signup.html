@@ -302,4 +302,44 @@
 
 </div>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    
+        function handleEnter(event) {
+            if (event.key === "Enter") {
+    
+                const firstName = document.getElementById("firstName").value.trim();
+                const lastName = document.getElementById("lastName").value.trim();
+                const username = document.getElementById("username").value.trim();
+                const password = document.getElementById("password").value.trim();
+                const confirmPassword = document.getElementById("confirmPassword").value.trim();
+    
+                if (
+                    firstName !== "" &&
+                    lastName !== "" &&
+                    username !== "" &&
+                    password !== "" &&
+                    confirmPassword !== ""
+                ) {
+                    doCreateUser();
+                }
+            }
+        }
+    
+        document.getElementById("firstName")
+                .addEventListener("keydown", handleEnter);
+    
+        document.getElementById("lastName")
+                .addEventListener("keydown", handleEnter);
+    
+        document.getElementById("username")
+                .addEventListener("keydown", handleEnter);
+    
+        document.getElementById("password")
+                .addEventListener("keydown", handleEnter);
+    
+        document.getElementById("confirmPassword")
+                .addEventListener("keydown", handleEnter);
+    });
+</script>
 </html>
