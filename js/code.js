@@ -18,6 +18,12 @@ function doLogin()
 	
 	document.getElementById("loginResult").innerHTML = "";
 
+	if (login === "" || password === "")
+	{
+	    document.getElementById("signupResult").innerHTML =
+            "Please fill in all fields";
+	    return;
+	}
 	let tmp = {Login:login,Password:password};
 //	var tmp = {login:login,password:hash};
 	let jsonPayload = JSON.stringify( tmp );
@@ -29,28 +35,58 @@ function doLogin()
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				let jsonObject = JSON.parse( xhr.responseText );
-				userId = jsonObject.id;
+		// xhr.onreadystatechange = function() 
+		// {
+		// 	if (this.readyState == 4 && this.status == 200) 
+		// 	{
+		// 		let jsonObject = JSON.parse( xhr.responseText );
+		// 		userId = jsonObject.id;
 		
-				if( userId < 1 )
-				{		
-					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
-					return;
-				}
+		// 		if( userId < 1 )
+		// 		{		
+		// 			document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+		// 			return;
+		// 		}
 		
-				firstName = jsonObject.firstName;
-				lastName = jsonObject.lastName;
+		// 		firstName = jsonObject.firstName;
+		// 		lastName = jsonObject.lastName;
 
-				saveCookie();
+		// 		saveCookie();
 	
-				window.location.href = "contactSearch.html";
-			}
+		// 		window.location.href = "contactSearch.html";
+		// 	}
+		// };
+		// xhr.send(jsonPayload);
+
+		xhr.onreadystatechange = function()
+		{
+		    if (this.readyState == 4)
+		    {
+		        if (this.status == 200)
+		        {
+		            let jsonObject = JSON.parse(xhr.responseText);
+		
+		            userId = jsonObject.id;
+		
+		            if (!userId || userId < 1)
+		            {
+		                alert("User/Password combination incorrect");
+		                return;
+		            }
+		
+		            firstName = jsonObject.firstName;
+		            lastName = jsonObject.lastName;
+		
+		            saveCookie();
+		
+		            window.location.href = "contactSearch.html";
+		        }
+		        else
+		        {
+		            alert("User/Password combination incorrect");
+		        }
+		    }
 		};
-		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
