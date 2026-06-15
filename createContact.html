@@ -238,8 +238,7 @@
 </head>
 <body>
 
-
-    <div id="contentArea">
+<div id="contentArea">
     <h1 id="title" style="display:none;">Create Contact</h1>
 
     <div id="navbar">
@@ -247,17 +246,24 @@
             <span id="brand-main">Lowkey Goated</span>
             <span id="brand-sub">Contact Manager</span>
         </div>
+
         <div id="loggedInDiv">
             <span id="userName"></span>
-            <button type="button" id="logoutButton" onclick="doContactSearch();">&#8592; Back</button>
+            <button type="button" id="logoutButton" onclick="doContactSearch();">
+                &#8592; Back
+            </button>
         </div>
     </div>
 
     <div id="pageLayout">
 
-    <img class="side-goat left-goat"
-         src="images/JumpingGoat.png"
-         alt="Goat" />
+
+        <img
+            src="images/JumpingGoat.png"
+            alt="Left Goat"
+            class="side-goat"
+        >
+
 
         <div id="signupDiv">
             <span id="inner-title">Create Contact</span>
@@ -266,32 +272,40 @@
             <div class="name-row">
                 <div class="field">
                     <label class="field-label" for="firstName">First Name</label>
-                    <input type="text" id="firstName" placeholder="First Name" />
+                    <input type="text" id="firstName" placeholder="First Name">
                 </div>
+
                 <div class="field">
                     <label class="field-label" for="lastName">Last Name</label>
-                    <input type="text" id="lastName" placeholder="Last Name" />
+                    <input type="text" id="lastName" placeholder="Last Name">
                 </div>
             </div>
 
             <div class="field">
                 <label class="field-label" for="phone">Phone Number</label>
-                <input type="text" id="phone" placeholder="Enter phone number" />
+                <input type="text" id="phone" placeholder="Enter phone number">
             </div>
 
             <div class="field">
                 <label class="field-label" for="email">Email</label>
-                <input type="text" id="email" placeholder="Enter email address" />
+                <input type="text" id="email" placeholder="Enter email address">
             </div>
 
-            <button type="button" id="submitButton" onclick="createContact();">Create Contact</button>
+            <button type="button" id="submitButton" onclick="createContact();">
+                Create Contact
+            </button>
+
             <span id="loginResult"></span>
-        
         </div>
 
-    <img class="side-goat right-goat"
-         src="images/JumpingGoat.png"
-         alt="Goat" />
+
+        <img
+            src="images/JumpingGoat.png"
+            alt="Right Goat"
+            class="side-goat right-goat"
+        >
 
     </div>
 </div>
+
+</body>
