@@ -119,7 +119,8 @@ function doCreateUser()
         confirmPassword === ""
     )
     {
-        alert("Please fill in all fields");
+        document.getElementById("signupResult").innerHTML =
+            "Please fill in all fields";
         return;
     }
 	
