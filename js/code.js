@@ -20,7 +20,7 @@ function doLogin()
 
 	if (login === "" || password === "")
 	{
-	    document.getElementById("signupResult").innerHTML =
+	    document.getElementById("loginResult").innerHTML =
             "Please fill in all fields";
 	    return;
 	}
@@ -70,7 +70,8 @@ function doLogin()
 		
 		            if (!userId || userId < 1)
 		            {
-		                alert("User/Password combination incorrect");
+		                document.getElementById("loginResult").innerHTML =
+            "User/Password combination incorrect";
 		                return;
 		            }
 		
@@ -83,10 +84,13 @@ function doLogin()
 		        }
 		        else
 		        {
-		            alert("User/Password combination incorrect");
+		            document.getElementById("loginResult").innerHTML =
+            "User/Password combination incorrect";
 		        }
 		    }
 		};
+		
+		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
