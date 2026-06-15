@@ -111,6 +111,18 @@ function doCreateUser()
 
     document.getElementById("signupResult").innerHTML = "";
 
+	if (
+        firstName === "" ||
+        lastName === "" ||
+        username === "" ||
+        password === "" ||
+        confirmPassword === ""
+    )
+    {
+        alert("Please fill in all fields");
+        return;
+    }
+	
     if(password !== confirmPassword)
     {
         document.getElementById("signupResult").innerHTML =
@@ -193,15 +205,7 @@ function doContactSearch()
 }
 
 let contacts = [];
-// function editContact(index)
-// {
-//     sessionStorage.setItem(
-//         "editingContact",
-//         JSON.stringify(contacts[index])
-//     );
 
-//     window.location.href = "createContact.html";
-// }
 function editContact(index)
 {
     sessionStorage.setItem(
