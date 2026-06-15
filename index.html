@@ -258,4 +258,27 @@
 </div>
 
 </body>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    function handleEnter(event) {
+        if (event.key === "Enter") {
+
+            const username = document.getElementById("loginName").value.trim();
+            const password = document.getElementById("loginPassword").value.trim();
+
+            // Only log in if both fields contain text
+            if (username !== "" && password !== "") {
+                doLogin();
+            }
+        }
+    }
+
+    document.getElementById("loginName")
+            .addEventListener("keydown", handleEnter);
+
+    document.getElementById("loginPassword")
+            .addEventListener("keydown", handleEnter);
+});
+</script>
 </html>
