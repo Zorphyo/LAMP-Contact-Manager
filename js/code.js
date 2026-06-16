@@ -307,10 +307,10 @@ function saveContact()
     let tmp =
     {
         ID: originalContact.ID,
-        FirstName: document.getElementById("firstName").value,
-        LastName: document.getElementById("lastName").value,
-        Phone: document.getElementById("phone").value,
-        Email: document.getElementById("email").value,
+        FirstName: firstName,
+        LastName: lastName,
+        Phone: formattedPhone,
+        Email: email,
         UserID: userId
     };
 
