@@ -17,9 +17,9 @@
 
 	else
 	{
-		$stmt = $conn->prepare("SELECT DISTINCT ID, FirstName, LastName, Phone, Email, UserID, Date FROM Contacts WHERE (CONCAT(FirstName, ' ', LastName) LIKE ?) AND UserID = ?");
+		$stmt = $conn->prepare("SELECT DISTINCT ID, FirstName, LastName, Phone, Email, UserID, Date FROM Contacts WHERE CONCAT(FirstName, ' ', LastName) LIKE ? AND UserID = ?");
 		$contactName = "%" . $query . "%";
-		$stmt->bind_param("ssi", $contactName, $contactName, $userId);
+		$stmt->bind_param("ssi", $contactName, $userId);
 		$stmt->execute();
 		
 		$result = $stmt->get_result();
