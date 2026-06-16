@@ -267,10 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const username = document.getElementById("loginName").value.trim();
             const password = document.getElementById("loginPassword").value.trim();
 
-            // Only log in if both fields contain text
-            if (username !== "" && password !== "") {
-                doLogin();
-            }
+            doLogin();
         }
     }
 
