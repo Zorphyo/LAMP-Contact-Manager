@@ -511,6 +511,17 @@ function createContact()
 
     document.getElementById("loginResult").innerHTML = "";
 
+	if (
+        firstName === "" ||
+        lastName === "" ||
+        phone === "" ||
+        email === ""
+    )
+    {
+        document.getElementById("loginResult").innerHTML =
+            "Please fill in all fields";
+        return;
+    }
     let tmp =
     {
         FirstName: firstName,
