@@ -8,14 +8,6 @@
         document.addEventListener('DOMContentLoaded', function()
         {
 
-            document.getElementById("searchText")
-                .addEventListener("keydown", function(event) {
-                    if (event.key === "Enter") {
-                        document.getElementById("searchContacts").click();
-                    }
-                });
-
-            
             readCookie();
 
             let lastSearch = sessionStorage.getItem("lastSearch");
@@ -25,6 +17,15 @@
                 document.getElementById("searchText").value = lastSearch;
                 searchContacts();
             }
+
+            document.getElementById("searchText")
+                .addEventListener("keydown", function(event) {
+                    if (event.key === "Enter") {
+                        searchContacts();
+                    }
+                });
+
+            
         }, false);
     </script>
     <style>
