@@ -8,31 +8,6 @@
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function()
         {
-            document
-                .querySelectorAll("#signupDiv input")
-                .forEach(input => {
-                    input.addEventListener("keydown", function(event) {
-                        if (event.key !== "Enter") return;
-            
-                        const fields = [
-                            "firstName",
-                            "lastName",
-                            "phone",
-                            "email"
-                        ];
-            
-                        const allFilled = fields.every(id =>
-                            document.getElementById(id).value.trim() !== ""
-                        );
-            
-                        if (allFilled) {
-                            console.log(document.getElementById("submitButton").onclick);
-                        }
-                    });
-                });
-
-
-            
             readCookie();
 
             let contactJSON = sessionStorage.getItem("editingContact");
@@ -52,6 +27,19 @@
                 document.getElementById("submitButton").innerHTML = "Save Changes";
                 document.getElementById("submitButton").onclick = saveContact;
             }
+
+            document
+                .querySelectorAll("#signupDiv input")
+                .forEach(input => {
+                    input.addEventListener("keydown", function(event) {
+                        if (event.key !== "Enter") return;
+            
+                        event.preventDefault();
+            
+                        document.getElementById("submitButton").click();
+                    });
+                });
+            
         }, false);
     </script>
     <style>
