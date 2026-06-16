@@ -522,11 +522,30 @@ function createContact()
             "Please fill in all fields";
         return;
     }
+
+
+	let phoneDigits = phone.replace(/\D/g, "");
+	
+	if (phoneDigits.length !== 10)
+	{
+	    document.getElementById("loginResult").innerHTML =
+	        "Phone number must contain 10 digits";
+	    return;
+	}
+	
+	// Format as xxx-xxx-xxxx
+	let formattedPhone =
+	    phoneDigits.substring(0, 3) + "-" +
+	    phoneDigits.substring(3, 6) + "-" +
+	    phoneDigits.substring(6, 10);
+
+
+	
     let tmp =
     {
         FirstName: firstName,
         LastName: lastName,
-        Phone: phone,
+        Phone: formattedPhone,
         Email: email,
         UserID: userId
     };
