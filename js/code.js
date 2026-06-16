@@ -514,6 +514,10 @@ function searchContacts()
 					            "<div class='contact-detail'>" +
 					                jsonObject[i].Email +
 					            "</div>" +
+					
+					            "<div class='contact-detail'>" +
+					                "Added: " + jsonObject[i].Date +
+					            "</div>" +
 					        "</div>" +
 					
 					        "<div class='contact-actions'>" +
