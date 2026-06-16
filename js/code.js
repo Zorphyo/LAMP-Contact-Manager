@@ -266,7 +266,44 @@ function saveContact()
 {
     let originalContact =
         JSON.parse(sessionStorage.getItem("editingContact"));
+	
+	let firstName = document.getElementById("firstName").value;
+	let lastName = document.getElementById("lastName").value;
+	let phone = document.getElementById("phone").value;
+	let email = document.getElementById("email").value;
 
+	document.getElementById("loginResult").innerHTML = "";
+
+	if (
+		firstName === "" ||
+		lastName === "" ||
+		phone === "" ||
+		email === ""
+	)
+	{
+		document.getElementById("loginResult").innerHTML =
+			"Please fill in all fields";
+		return;
+	}
+
+
+	let phoneDigits = phone.replace(/\D/g, "");
+	
+	if (phoneDigits.length !== 10)
+	{
+		document.getElementById("loginResult").innerHTML =
+			"Phone number must contain 10 digits";
+		return;
+	}
+	
+	// Format as xxx-xxx-xxxx
+	let formattedPhone =
+		phoneDigits.substring(0, 3) + "-" +
+		phoneDigits.substring(3, 6) + "-" +
+		phoneDigits.substring(6, 10);
+
+
+	
     let tmp =
     {
         ID: originalContact.ID,
