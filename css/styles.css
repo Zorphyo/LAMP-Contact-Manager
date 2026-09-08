@@ -76,7 +76,7 @@ body
 {
 	font-size: 30px;
 }
-#colorText
+#contactText
 {
 	font-size: 30px;
 }
@@ -132,11 +132,11 @@ select{
     font-family: 'Ubuntu', sans-serif;
 }
 
-#colorSearchResult{
+#contactSearchResult{
     display: none;
 }
 
-#colorAddResult{
+#contactAddResult{
     display: inline-block;
     font-size: 0.8em;
     width: 90%;
@@ -146,4 +146,27 @@ select{
     margin-bottom: 1%;
     font-family: 'Ubuntu', sans-serif;
     color: #95060a;
+}
+
+.contactRow {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 2px;
+}
+
+.contactColor1 {
+    background-color: white;
+}
+
+.contactColor2 {
+    background-color: #bbbbbb;
+}
+
+.contactButtons
+{
+    font-size: 30px;
+    border-radius: 25px;
+    width: 30%;
+    margin-left: 1%;
+    font-family: 'Ubuntu', sans-serif;
 }

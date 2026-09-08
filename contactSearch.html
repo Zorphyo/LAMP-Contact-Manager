@@ -1,39 +1,340 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>Contact Manager</title>
-	<script type="text/javascript" src="js/code.js"></script>
-    <link href="css/styles.css" rel="stylesheet">	
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-	
-	<script type="text/javascript">
-	document.addEventListener('DOMContentLoaded', function() 
-	{
-		readCookie();
-	}, false);
-	</script>
-	
+    <title>Contact Manager</title>
+    <script type="text/javascript" src="js/code.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function()
+        {
+
+            readCookie();
+
+            let lastSearch = sessionStorage.getItem("lastSearch");
+
+            if(lastSearch)
+            {
+                document.getElementById("searchText").value = lastSearch;
+                searchContacts();
+            }
+
+            document.getElementById("searchText")
+                .addEventListener("keydown", function(event) {
+                    if (event.key === "Enter") {
+                        searchContacts();
+                    }
+                });
+
+            
+        }, false);
+    </script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(180deg, #F9F5E9 0%, #E8DFC9 100%);
+            min-height: 100vh;
+        }
+
+        /* navbar */
+        #navbar {
+            background: #FFFEFC;
+            border-bottom: 2px solid #D7C7A5;
+            padding: 0 2rem;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        #brand {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+        #brand-main {
+            font-size: 20px;
+            font-weight: 800;
+            color: #5C3D2E;
+        }
+
+        #brand-sub {
+            font-size: 11px;
+            font-weight: 600;
+            color: #7A6248;
+            letter-spacing: 1px;
+        }
+
+        #loggedInDiv {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        #userName {
+            font-size: 13px;
+            color: #7A6248;
+        }
+
+        #logoutButton {
+            height: 32px;
+            padding: 0 14px;
+            background: none;
+            border: 1.5px solid #D7C7A5;
+            border-radius: 8px;
+            color: #5C3D2E;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        #logoutButton:hover {
+            background: #F0E9D8;
+        }
+
+        /* page layout */
+        #pageLayout {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 40px;
+            width: 100%;
+            padding: 2rem 20px;
+            min-height: calc(100vh - 56px);
+        }
+
+        .side-goat {
+            width: 220px;
+            max-width: 18vw;
+            height: auto;
+            user-select: none;
+            pointer-events: none;
+            margin-top: 2rem;
+        }
+
+        .right-goat {
+            transform: scaleX(-1);
+        }
+
+        /* main content */
+        #main {
+            width: 100%;
+            max-width: 560px;
+        }
+
+        /* search bar */
+        #searchRow {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        #searchText {
+            flex: 1;
+            height: 40px;
+            padding: 0 14px;
+            border: 2px solid #D7C7A5;
+            border-radius: 8px;
+            background: #FFFDF7;
+            color: #5C3D2E;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            outline: none;
+            color-scheme: light;
+        }
+
+        #searchText::placeholder {
+            color: #B5A48A;
+        }
+
+        #searchText:focus {
+            border-color: #7A6248;
+            box-shadow: 0 0 0 3px #F2E0CB;
+        }
+
+        #searchContacts {
+            height: 40px;
+            padding: 0 18px;
+            background: #7A6248;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        #searchContacts:hover {
+            background: #5C3D2E;
+        }
+
+        /* contact result message */
+        #contactSearchResult {
+            display: block;
+            font-size: 13px;
+            color: #7A6248;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        /* contact cards */
+        #contactList {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .contactRow {
+            background: #FFFDF7;
+            border: 2px solid #D7C7A5;
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .contact-info .contact-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #5C3D2E;
+            margin-bottom: 2px;
+        }
+
+        .contact-info .contact-detail {
+            font-size: 13px;
+            color: #7A6248;
+        }
+
+        .contact-actions {
+            padding-left: 48px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-edit {
+            height: 32px;
+            padding: 0 14px;
+            background: #F0E9D8;
+            border: 1.5px solid #D7C7A5;
+            border-radius: 8px;
+            color: #5C3D2E;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .btn-edit:hover {
+            background: #D7C7A5;
+        }
+
+        .btn-delete {
+            height: 32px;
+            padding: 0 14px;
+            background: #FFF0EE;
+            border: 1.5px solid #F5C5BE;
+            border-radius: 8px;
+            color: #D85A30;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .btn-delete:hover {
+            background: #F5C5BE;
+        }
+
+        /* add contact button */
+        #addContactButton {
+            width: 100%;
+            height: 42px;
+            background: #7A6248;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        #addContactButton:hover {
+            background: #5C3D2E;
+        }
+
+        #contactAddResult {
+            display: block;
+            font-size: 13px;
+            color: #D85A30;
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        #bottomGoat {
+            display: block;
+            margin: 20px auto 0;
+            width: 180px;
+            height: auto;
+        }
+        .contactColor1 {
+            background-color: #FFFDF7;
+        }
+        
+        .contactColor2 {
+            background-color: #FCF8E6;
+        }
+    </style>
 </head>
 <body>
 
-<h1 id="title">Contact Search</h1>
+    <div id="navbar">
+        <div id="brand">
+            <span id="brand-main">Lowkey Goated</span>
+            <span id="brand-sub">Contact Manager</span>
+        </div>
+        <div id="loggedInDiv">
+            <span id="userName"></span>
+            <button type="button" id="logoutButton" onclick="doLogout();">Log Out</button>
+        </div>
+    </div>
 
-<div id="loggedInDiv">
-	<span id="userName"></span><br />
-	<button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
-</div>
+    <div id="pageLayout">
 
-<div id="accessUIDiv">
-	<br />
+        <img class="side-goat left-goat" src="images/JumpingGoat.png" alt="Goat" />
+        <main>
+        <div id="main">
+            <div id="searchRow">
+                <input type="text" id="searchText" placeholder="Search contacts..." />
+                <button type="button" id="searchContacts" onclick="searchContacts();">Search</button>
+            </div>
 
-	<input type="text" id="searchText" placeholder="Search Contacts"/>
-	<button type="button" id="searchContacts" class="buttons" onclick="searchColor();"> Search Contacts </button><br />
-	<span id="colorSearchResult"></span>
-	<p id="colorList">
-	</p><br /><br />
+            <span id="contactSearchResult"></span>
 
-	<button type="button" id="addColorButton" class="buttons" onclick="doCreateContact();"> Add Contact </button><br />
-	<span id="colorAddResult"></span>
-</div>
+            <div id="contactList"></div>
+
+            <button type="button" id="addContactButton" onclick="doCreateContact();">+ Add Contact</button>
+            <span id="contactAddResult"></span>
+
+            <img id="bottomGoat" src="images/GoatHead.png" alt="Goat">
+            
+        </div>
+        </main>
+        <img class="side-goat right-goat" src="images/JumpingGoat.png" alt="Goat" />
+
+    </div>
 
 </body>
 </html>
